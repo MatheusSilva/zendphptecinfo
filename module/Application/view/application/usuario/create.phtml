@@ -1,0 +1,44 @@
+<script type="text/javascript">
+document.getElementById('modulo').value = 'usuario';
+</script>
+
+<form name="form" method="POST" action="/application/usuario/create">
+	<a href="/application/usuario/login">Login</a>
+	<br />
+	<br />
+
+	<?php  
+		$strErros = "";
+
+		if (isset($this->erros["nome"]["isEmpty"])) {
+			$strErros .= "\n".$this->erros["nome"]["isEmpty"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooShort"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooShort"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooLong"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooLong"];
+		}
+		
+		if (isset($this->erros["usuario"]["isEmpty"])) {
+			$strErros .= "\n".$this->erros["usuario"]["isEmpty"];
+		} elseif (isset($this->erros["usuario"]["stringLengthTooShort"])) {
+			$strErros .= "\n".$this->erros["usuario"]["stringLengthTooShort"];
+		} elseif (isset($this->erros["usuario"]["stringLengthTooLong"])) {
+			$strErros .= "\n".$this->erros["usuario"]["stringLengthTooLong"];
+		}
+		
+		if (!empty($strErros)) {
+			echo "<p>".$strErros."</p>";
+		}
+	?>
+
+	<label>Nome</label>
+	<input type="text" name="nome" />
+	<br/>
+	<label>Usuario</label>
+	<input type="text" name="login" />
+	<br/>
+	<label>Senha</label>
+	<input type="password" name="senha" />
+	<br/>
+	<button class="btn btn-success" type="submit">Cadastre-se</button>
+</form>

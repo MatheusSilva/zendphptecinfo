@@ -1,0 +1,1 @@
+php -S localhost:9990 -t public public/index.php

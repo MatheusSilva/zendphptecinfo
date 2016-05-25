@@ -1,0 +1,30 @@
+<script type="text/javascript">
+document.getElementById('modulo').value = 'tecnico';
+</script>
+
+<h1>Técnicos</h1>
+<a href="/application/tecnico/create">Cadastrar técnico</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->clientes as $o): ?>
+        <tr>
+            <td><?php echo $o->getNome();?></td>  
+            <td>
+                <a href="/application/tecnico/edit/<?php echo $o->getId();?>">
+                Editar
+                </a>
+                |
+                <a href="/application/tecnico/delete/<?php echo $o->getId();?>">
+                Excluir
+                </a>
+            </td>        
+        </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>

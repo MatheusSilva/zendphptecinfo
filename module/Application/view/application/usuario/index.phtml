@@ -1,0 +1,27 @@
+<a href="/application/usuario/create">Cadastrar usuário</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Usuario</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->clientes as $o): ?>
+        <tr>
+            <td><?php echo $o->getNome();?></td>  
+            <td><?php echo $o->getLogin();?></td>
+            <td>
+                <a href="/application/usuario/edit/<?php echo $o->getId();?>">
+                Editar
+                </a>
+                |
+                <a href="/application/usuario/delete/<?php echo $o->getId();?>">
+                Excluir
+                </a>
+            </td>        
+        </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>

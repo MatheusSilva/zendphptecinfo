@@ -1,0 +1,39 @@
+<form name="form" method="POST"
+      action="/application/usuario/edit/<?php echo $this->cliente->getId();?>">
+	<input type="hidden" name="codigo_torcedor" value="<?php echo $this->cliente->getId();?>"/>
+	
+	<?php
+		$strErros = "";
+
+		if (isset($this->erros["nome"]["isEmpty"])) {
+			$strErros .= "\n".$this->erros["nome"]["isEmpty"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooShort"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooShort"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooLong"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooLong"];
+		}
+		
+		if (isset($this->erros["usuario"]["isEmpty"])) {
+			$strErros .= "\n".$this->erros["usuario"]["isEmpty"];
+		} elseif (isset($this->erros["usuario"]["stringLengthTooShort"])) {
+			$strErros .= "\n".$this->erros["usuario"]["stringLengthTooShort"];
+		} elseif (isset($this->erros["usuario"]["stringLengthTooLong"])) {
+			$strErros .= "\n".$this->erros["usuario"]["stringLengthTooLong"];
+		}
+		
+		if (!empty($strErros)) {
+			echo "<p>".$strErros."</p>";
+		}
+	?>
+	
+	<label>Nome</label>
+	<input type="text" name="nome" value="<?php echo $this->cliente->getNome();?>"/>
+	<br/>
+	<label>Usuario</label>
+	<input type="text" name="login" value="<?php echo $this->cliente->getLogin();?>"/>
+	<br/>
+	<label>Senha</label>
+	<input type="text" name="senha" value=""/>
+	<br/>
+	<button class="btn btn-success" type="submit">Alterar</button>
+</form>

@@ -1,0 +1,30 @@
+<script type="text/javascript">
+document.getElementById('modulo').value = 'divisao';
+</script>
+
+<h1>Divisões</h1>
+<a href="/application/divisao/create">Cadastrar divisão</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->clientes as $o): ?>
+        <tr>
+            <td><?php echo $o->getNome();?></td>
+            <td>
+                <a href="/application/divisao/edit/<?php echo $o->getId();?>">
+                Editar
+                </a>
+                |
+                <a href="/application/divisao/delete/<?php echo $o->getId();?>">
+                Excluir
+                </a>
+            </td>
+        </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>

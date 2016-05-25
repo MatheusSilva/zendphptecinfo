@@ -1,0 +1,114 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Gerenciador de times'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+        <script type="text/javascript">
+            function mudaClass()
+            {
+                if (document.getElementById('modulo').value == 'categoria') {
+                    document.getElementById('categoria').setAttribute('class', "active");
+                } else if (document.getElementById('modulo').value == 'divisao') {
+                    document.getElementById('divisao').setAttribute('class', "active");
+                } else if (document.getElementById('modulo').value == 'tecnico') {
+                    document.getElementById('tecnico').setAttribute('class', "active");
+                } else if (document.getElementById('modulo').value == 'usuario') {
+                    document.getElementById('usuario').setAttribute('class', "active");
+                }
+
+                //document.getElementById(element).setAttribute('class', "active");
+            }
+        </script>
+    </head>
+    <body onload="mudaClass()">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?php echo $this->url('home')."application/usuario" ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('Gerenciador de times') ?></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <!--class="active"-->
+                        <?php
+                        $http_client_ip = "";
+                        $http_x_forwarded_for = "";
+                        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+                            $http_client_ip       = $_SERVER['HTTP_CLIENT_IP'];
+                        }//if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+                        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+                            $http_x_forwarded_for = $_SERVER['HTTP_X_FORWARDED_FOR'];
+                        }//if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+                        $remote_addr          = $_SERVER['REMOTE_ADDR'];
+                         
+                        /* verifica se o ip existe */
+                        if (!empty($http_client_ip)) {
+                            $ip = $http_client_ip;
+                            /* verifica se o acesso é de um servidor proxy */
+                        } elseif (!empty($http_x_forwarded_for)) {
+                            $ip = $http_x_forwarded_for;
+                        } else {
+                            /* caso contrario pega o ip normal do usuario */
+                            $ip = $remote_addr;
+                        }
+
+                        if (isset($_SESSION['logado'])
+                        && $_SESSION['logado'] == 'ok'
+                        && $_SESSION['agentUser'] == $_SERVER['HTTP_USER_AGENT']
+                        && $_SESSION['ip'] == $ip
+                        && isset($_COOKIE['token'])) {
+                            $url = $this->url('home')."application/categoria";
+                            echo "<li class=\"\" id=\"categoria\"><a href=\"".$url."\">Categoria</a></li>";
+
+                            $url = $this->url('home')."application/divisao";
+                            echo "<li class=\"\" id=\"divisao\"><a href=\"".$url."\">Divisão</a></li>";
+
+                            $url = $this->url('home')."application/tecnico";
+                            echo "<li class=\"\" id=\"tecnico\"><a href=\"".$url."\">Técnico</a></li>";
+
+                            $url = $this->url('home')."application/usuario/sair";
+                            echo "<li class=\"\"><a href=\"".$url."\">Sair</a></li>";
+                        }
+
+                        ?>
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div class="container">
+            <input type="hidden" id="modulo" value="" />
+            <?php echo $this->content; ?>
+            <hr>
+            <footer>
+                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<script type="text/javascript">
+document.getElementById('modulo').value = 'tecnico';
+</script>
+
+<form name="form" method="POST" action="/application/tecnico/create">
+	<?php 
+		$strErros = "";
+
+		if (isset($this->erros["nome"]["isEmpty"])) {
+			$strErros .= "\n".$this->erros["nome"]["isEmpty"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooShort"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooShort"];
+		} elseif (isset($this->erros["nome"]["stringLengthTooLong"])) {
+			$strErros .= "\n".$this->erros["nome"]["stringLengthTooLong"];
+		}
+
+		if (!empty($strErros)) {
+			echo "<p>".$strErros."</p>";
+		}
+	?>
+
+	<label>Nome</label>
+	<input type="text" name="nome" />
+	<br/>
+	<button class="btn btn-success" type="submit">Cadastrar</button>
+</form>

@@ -1,0 +1,31 @@
+<a href="/application/index/create">Cadastrar cliente</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Cidade</th>
+            <th>Bairro</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($this->clientes as $o): ?>
+        <tr>
+            <td><?php echo $o->getNome();?></td>    
+            <td><?php echo $o->getEndereco();?></td>    
+            <td><?php echo $o->getCidade();?></td>
+            <td><?php echo $o->getBairro();?></td>        
+            <td>
+                <a href="/application/index/edit/<?php echo $o->getId();?>">
+                Editar
+                </a>
+                |
+                <a href="/application/index/delete/<?php echo $o->getId();?>">
+                Excluir
+                </a>
+            </td>        
+        </tr>
+        <?php endforeach;?>
+    </tbody>
+</table>
